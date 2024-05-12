@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Static Data Analytics</title>
+    <style>
+      /* Center-align the form and table */
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("https://wallpaperaccess.com/full/1445471.jpg"); /* Background image */
+        background-size: cover; /* Cover the entire background */
+        background-position: center; /* Center the background */
+        font-family: Arial, sans-serif; /* Font family */
+      }
+
+      h1 {
+        color: #007bff; /* Header color */
+      }
+
+      form {
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        width: 400px; /* Adjust the width as needed */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.7
+        ); /* Form background color with opacity */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow */
+      }
+
+      input[type="text"] {
+        width: calc(100% - 22px); /* Adjust input width */
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 10px; /* Add margin bottom */
+        border: 1px solid #ccc; /* Input border */
+        border-radius: 5px; /* Input border radius */
+      }
+
+      input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3; /* Darker color on hover */
+      }
+
+      /* Style for the result table */
+      .result-table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 400px;
+        text-align: center; /* Center-align table content */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.7
+        ); /* Table background color with opacity */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow */
+      }
+
+      .result-table th,
+      .result-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .result-table th {
+        background-color: #f2f2f2;
+        color: #007bff;
+      }
+
+      .result-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      /* Style for benign and malignant results */
+      .benign {
+        color: green;
+        font-weight: bold;
+      }
+
+      .malignant {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="font-size: 3rem; color: white;">Static Data Analytics</h1>
+    <form method="POST">
+      <label for="input_data">Enter input data (comma-separated values):</label
+      ><br />
+      <input type="text" name="input_data" id="input_data" required /><br />
+      <input type="submit" value="Predict" />
+    </form>
+
+    {% if predictions %}
+    <table class="result-table">
+      <tr>
+        <th>Model</th>
+        <th>Result</th>
+      </tr>
+      {% for model, result in predictions.items() %}
+      <tr>
+        <td>{{ model }}</td>
+        <td class="{% if result == 'Safe' %}safe{% else %}malignant{% endif %}">
+          {{ result }}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+  </body>
+</html>
